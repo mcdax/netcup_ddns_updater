@@ -328,3 +328,14 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Docker
+.dockerignore
+docker-compose.yml
+
+# Environment
+.env
+
+# Container logs
+*.log
+log.json

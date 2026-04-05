@@ -1,0 +1,3 @@
+[submodule "vendor/owndyndns"]
+	path = vendor/owndyndns
+	url = https://github.com/fernwerker/ownDynDNS

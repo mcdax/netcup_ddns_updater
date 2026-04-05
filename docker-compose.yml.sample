@@ -1,0 +1,15 @@
+services:
+  netcup-dyndns:
+    image: ghcr.io/mcdax/netcup_ddns_updater:latest
+    container_name: netcup_dyndns
+    environment:
+      - OWNDYNDNS_USERNAME=${OWNDYNDNS_USERNAME}
+      - OWNDYNDNS_PASSWORD=${OWNDYNDNS_PASSWORD}
+      - NETCUP_APIKEY=${NETCUP_APIKEY}
+      - NETCUP_APIPASSWORD=${NETCUP_APIPASSWORD}
+      - NETCUP_CUSTOMERID=${NETCUP_CUSTOMERID}
+      - DEBUG=${DEBUG:-false}
+    restart: always
+    volumes:
+      - ./logs:/app/logs
+

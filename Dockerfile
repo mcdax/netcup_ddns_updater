@@ -1,27 +1,24 @@
 FROM alpine:latest
-MAINTAINER Seji64 <seji@tihoda.de>
+LABEL maintainer="mcdax"
 
 # Add basics first
 RUN apk update && apk upgrade
 RUN apk --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing add \
-    bash \ 
+    bash \
     apache2 \
     openssl \
-    php7-apache2 \
-    curl \
+    php-apache2 \
     ca-certificates \
-    git \
-    php7 \
-    php7-soap \
-    php7-mbstring \
-    php7-curl \
-    php7-json \
-    php7-simplexml \
-    php7-openssl \
+    php \
+    php-soap \
+    php-mbstring \
+    php-curl \
+    php-json \
+    php-simplexml \
+    php-openssl \
     tzdata
 
-RUN cp /usr/bin/php7 /usr/bin/php \
-    && rm -f /var/cache/apk/*
+RUN rm -f /var/cache/apk/*
 
 # Add apache to run and configure
 RUN  sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apache2/httpd.conf \
@@ -34,8 +31,9 @@ RUN  sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apa
     && sed -i -r 's@Errorlog .*@Errorlog /dev/stderr@i' /etc/apache2/httpd.conf \
     && printf "\n<Directory \"/app/public\">\n\tAllowOverride All\n</Directory>\n" >> /etc/apache2/httpd.conf
 
-RUN mkdir /tmp/ownDynDNS
-RUN mkdir /app && mkdir /app/public && chown -R apache:apache /app && chmod -R 755 /app && mkdir bootstrap
+RUN apk add --no-cache git && \
+    mkdir /app && mkdir /app/public && chown -R apache:apache /app && chmod -R 755 /app && mkdir bootstrap && \
+    git clone --depth 1 https://github.com/fernwerker/ownDynDNS /app/vendor/owndyndns
 ADD start.sh /bootstrap/
 RUN chmod +x /bootstrap/start.sh
 
