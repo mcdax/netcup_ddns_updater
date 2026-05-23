@@ -72,46 +72,46 @@ echo "Configure ownDynDNS..."
 
 if [ ! -z "$OWNDYNDNS_USERNAME" ];
 	then
-		echo "username=\"$OWNDYNDNS_USERNAME\"" >> /app/.env
+		echo "username=\"$OWNDYNDNS_USERNAME\"" >> /app/public/.env
 	else
 		echo "[ERROR] OWNDYNDNS_USERNAME Variable is not defined!"
 fi
 
 if [ ! -z "$OWNDYNDNS_PASSWORD" ];
 	then
-		echo "password=\"$OWNDYNDNS_PASSWORD\"" >> /app/.env
+		echo "password=\"$OWNDYNDNS_PASSWORD\"" >> /app/public/.env
 	else
 		echo "[ERROR] OWNDYNDNS_PASSWORD Variable is not defined!"
 fi
 
 if [ ! -z "$NETCUP_APIKEY" ];
 	then
-		echo "apiKey=\"$NETCUP_APIKEY\"" >> /app/.env
+		echo "apiKey=\"$NETCUP_APIKEY\"" >> /app/public/.env
 	else
 		echo "[ERROR] NETCUP_APIKEY Variable is not defined!"
 fi
 
 if [ ! -z "$NETCUP_APIPASSWORD" ];
 	then
-		echo "apiPassword=\"$NETCUP_APIPASSWORD\"" >> /app/.env
+		echo "apiPassword=\"$NETCUP_APIPASSWORD\"" >> /app/public/.env
 	else
 		echo "[ERROR] NETCUP_APIPASSWORD Variable is not defined!"
 fi
 
 if [ ! -z "$NETCUP_CUSTOMERID" ];
 	then
-		echo "customerId=\"$NETCUP_CUSTOMERID\"" >> /app/.env
+		echo "customerId=\"$NETCUP_CUSTOMERID\"" >> /app/public/.env
 	else
 		echo "[ERROR] NETCUP_CUSTOMERID Variable is not defined!"
 fi
 
 if [ ! -z "$DEBUG" ];
 	then
-		echo "debug=true" >> /app/.env
+		echo "debug=true" >> /app/public/.env
 fi
 
-echo "log=true" >> /app/.env
-echo "logFile=/app/logs/log.json" >> /app/.env
+echo "log=true" >> /app/public/.env
+echo "logFile=/app/logs/log.json" >> /app/public/.env
 
 # Start (ensure apache2 PID not left behind first) to stop auto start crashes if didn't shut down properly
 
