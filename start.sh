@@ -55,6 +55,12 @@ echo "Installing ownDynDNS..."
 cp -v /app/vendor/owndyndns/update.php /app/public/update.php
 cp -rv /app/vendor/owndyndns/src /app/public/
 chown -R apache:apache /app && chmod -R 755 /app
+# Block .env from web access
+cat > /app/public/.htaccess <<'HTACCESS'
+<Files ".env">
+Require all denied
+</Files>
+HTACCESS
 
 # Create logs directory
 mkdir -p /app/logs
