@@ -76,6 +76,9 @@ fi
 #Configure ownDynDNS
 echo "Configure ownDynDNS..."
 
+# Recreate .env on every start instead of appending to the previous one
+: > /app/public/.env
+
 if [ ! -z "$OWNDYNDNS_USERNAME" ];
 	then
 		echo "username=\"$OWNDYNDNS_USERNAME\"" >> /app/public/.env

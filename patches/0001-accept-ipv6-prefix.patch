@@ -1,0 +1,16 @@
+diff --git a/src/Payload.php b/src/Payload.php
+index 560c0f7..0c48861 100644
+--- a/src/Payload.php
++++ b/src/Payload.php
+@@ -46,6 +46,11 @@ final class Payload
+                 $this->$key = $payload[$key];
+             }
+         }
++
++        // accept an IPv6 prefix in CIDR notation (e.g. FRITZ!Box <ip6lanprefix>) and use its address part
++        if (is_string($this->ipv6) && false !== strpos($this->ipv6, '/')) {
++            $this->ipv6 = strstr($this->ipv6, '/', true);
++        }
+     }
+ 
+     /**
