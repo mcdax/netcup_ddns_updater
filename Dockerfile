@@ -31,9 +31,14 @@ RUN  sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apa
     && sed -i -r 's@Errorlog .*@Errorlog /dev/stderr@i' /etc/apache2/httpd.conf \
     && printf "\n<Directory \"/app/public\">\n\tAllowOverride All\n</Directory>\n" >> /etc/apache2/httpd.conf
 
+# Pin ownDynDNS so the local patches apply reliably
+ARG OWNDYNDNS_COMMIT=d756c8a80a060879dae8615d9d3ec2c6125f0027
+ADD patches /bootstrap/patches
 RUN apk add --no-cache git && \
-    mkdir /app && mkdir /app/public && chown -R apache:apache /app && chmod -R 755 /app && mkdir bootstrap && \
-    git clone --depth 1 https://github.com/fernwerker/ownDynDNS /app/vendor/owndyndns
+    mkdir /app && mkdir /app/public && chown -R apache:apache /app && chmod -R 755 /app && mkdir -p bootstrap && \
+    git clone https://github.com/fernwerker/ownDynDNS /app/vendor/owndyndns && \
+    git -C /app/vendor/owndyndns checkout -q $OWNDYNDNS_COMMIT && \
+    git -C /app/vendor/owndyndns apply /bootstrap/patches/*.patch
 ADD start.sh /bootstrap/
 RUN chmod +x /bootstrap/start.sh
 

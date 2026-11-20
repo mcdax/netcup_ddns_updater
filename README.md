@@ -36,7 +36,7 @@ Parameters:
 - `user` - Username (from OWNDYNDNS_USERNAME)
 - `password` - Password (from OWNDYNDNS_PASSWORD)
 - `ipv4` - IPv4 address
-- `ipv6` - IPv6 address (optional)
+- `ipv6` - IPv6 address (optional); an IPv6 prefix in CIDR notation such as `2001:db8:1234:5600::/56` is accepted as well and its address part is stored
 - `domain` - Domain/hostname to update (comma-separated for multiple)
 
 ## FritzBox Setup
@@ -50,6 +50,16 @@ Parameters:
 4. Domainname: `<your-domain>` (comma-separated for multiple domains)
 5. Username: `<username from OWNDYNDNS_USERNAME>`
 6. Password: `<password from OWNDYNDNS_PASSWORD>`
+
+### Publishing the LAN prefix
+
+A FRITZ!Box accepts several update URLs separated by spaces. To publish the LAN prefix as an additional AAAA record (for example for allowlists), append a second URL that uses `<ip6lanprefix>`:
+
+```
+https://<your-domain>/update.php?user=<username>&password=<pass>&ipv6=<ip6lanprefix>&domain=<lan-record>
+```
+
+The AAAA record `<lan-record>` must already exist in netcup CCP.
 
 ## Environment Variables
 
